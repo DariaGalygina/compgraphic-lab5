@@ -1,0 +1,145 @@
+<!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Midpoint Displacement — Горный массив</title>
+<style>
+    body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+    }
+
+    #controls {
+        width: 320px;
+        padding: 16px;
+        box-sizing: border-box;
+        background: #f6f7f9;
+        border-right: 1px solid #ddd;
+        overflow: auto;
+    }
+
+    #canvas-wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    canvas {
+        flex: 1;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(#87ceeb, #e6f2ff);
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        font-size: 13px;
+    }
+
+    input[type=range] {
+        width: 100%;
+    }
+
+    .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .btn {
+        padding: 8px 10px;
+        cursor: pointer;
+        border: 1px solid #888;
+        background: white;
+        border-radius: 6px;
+    }
+
+    .big {
+        font-size: 16px;
+        padding: 10px 12px;
+    }
+
+    small.hint {
+        color: #666;
+    }
+</style>
+</head>
+
+<body>
+    <div id="controls">
+        <h2>Midpoint Displacement</h2>
+        <div>
+            <label>Количество итераций: <span id="itersVal">8</span></label>
+            <input id="iters" type="range" min="0" max="12" value="8">
+        </div>
+
+
+        <div>
+            <label>Начальное смещение (px): <span id="dispVal">120</span></label>
+            <input id="disp" type="range" min="0" max="400" value="120">
+        </div>
+
+
+        <div>
+            <label>Шероховатость (roughness) (0..1): <span id="roughVal">0.6</span></label>
+            <input id="rough" type="range" min="0" max="1" step="0.01" value="0.6">
+        </div>
+
+
+        <div>
+            <label>Seed (целое) <small class="hint">(пусто = случайно)</small></label>
+            <input id="seed" type="number" placeholder="оставьте пустым" style="width:100%">
+        </div>
+
+
+        <div>
+            <label>Высота левого конца (px): <span id="leftHVal">300</span></label>
+            <input id="leftH" type="range" min="0" max="600" value="300">
+        </div>
+
+
+        <div>
+            <label>Высота правого конца (px): <span id="rightHVal">300</span></label>
+            <input id="rightH" type="range" min="0" max="600" value="300">
+        </div>
+
+
+        <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+            <button id="generate" class="btn big">Сгенерировать</button>
+            <button id="prev" class="btn">‹ Шаг назад</button>
+            <button id="next" class="btn">Шаг вперёд ›</button>
+            <button id="play" class="btn">Играть</button>
+            <button id="stop" class="btn">Стоп</button>
+        </div>
+
+
+        <div style="margin-top:10px;">
+            <label>Режим: </label>
+            <select id="mode" style="width:100%">
+                <option value="polyline">Отрисовка ломаной</option>
+                <option value="filled">Заполненный профиль (горы)</option>
+            </select>
+        </div>
+
+
+        <div style="margin-top:10px; font-size:13px; color:#333;">
+            <p><strong>Как работает:</strong> алгоритм делит отрезки пополам и смещает середины вертикально; амплитуда
+                смещений уменьшается каждый шаг (зависит от roughness).</p>
+            <p>Кнопки "Шаг" показывают последовательные ступени генерации.</p>
+        </div>
+
+    </div>
+
+
+    <div id="canvas-wrap">
+        <canvas id="c"></canvas>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
