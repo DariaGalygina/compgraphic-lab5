@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L-системы</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Генератор L-систем</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="system-select">Выберите L-систему:</label>
+                <select id="system-select">
+                    <option value="koch">Кривая Коха</option>
+                    <option value="koch-snowflake" selected>Снежинка Коха</option>
+                    <option value="koch-island">Квадратный остров Коха</option>
+                    <option value="sierpinski-carpet">Ковер Серпинского</option>
+                    <option value="sierpinski-arrow">Наконечник Серпинского</option>
+                    <option value="hilbert">Кривая Гильберта</option>
+                    <option value="dragon">Кривая дракона</option>
+                    <option value="gosper">Кривая Госпера</option>
+                    <option value="tree1">Куст 1</option>
+                    <option value="tree2">Куст 2</option>
+                    <option value="tree3">Куст 3</option>
+                    <option value="mosaic">Шестиугольная мозаика</option>
+                    <option value="fractal-tree">Фрактальное дерево</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="iterations">Количество итераций:</label>
+                <input type="range" id="iterations" min="0" max="8" value="3" step="1">
+                <div id="iterations-value" class="warning">3</div>
+                
+                <label for="angle">Угол поворота (градусы):</label>
+                <input type="number" id="angle" min="0" max="360" value="60">
+            </div>
+            
+            <div class="control-group">
+                <label for="randomness">Случайность (0-1):</label>
+                <input type="range" id="randomness" min="0" max="1" step="0.1" value="0">
+                <div id="randomness-value" class="warning">0</div>
+                
+                <label for="scale">Масштаб (%):</label>
+                <input type="range" id="scale" min="10" max="500" value="100" step="10">
+                <div id="scale-value" class="warning">100%</div>
+            </div>
+        </div>
+
+        <!-- Специальные настройки для фрактального дерева -->
+        <div class="controls tree-controls" id="tree-controls" style="display: none;">
+            <div class="control-group">
+                <label for="branch-shrink">Сужение ветвей (%):</label>
+                <input type="range" id="branch-shrink" min="10" max="90" value="70" step="5">
+                <div id="branch-shrink-value" class="warning">70%</div>
+                
+                <label for="line-width">Толщина ствола:</label>
+                <input type="range" id="line-width" min="1" max="20" value="8" step="1">
+                <div id="line-width-value" class="warning">8px</div>
+            </div>
+            
+            <div class="control-group">
+                <label for="branch-randomness">Случайность ветвей (0-1):</label>
+                <input type="range" id="branch-randomness" min="0" max="1" step="0.1" value="0.3">
+                <div id="branch-randomness-value" class="warning">0.3</div>
+                
+                <label for="color-transition">Переход цвета (%):</label>
+                <input type="range" id="color-transition" min="0" max="100" value="50" step="5">
+                <div id="color-transition-value" class="warning">50%</div>
+            </div>
+            
+            <div class="control-group">
+                <label for="leaf-size">Размер листьев:</label>
+                <input type="range" id="leaf-size" min="0" max="10" value="3" step="1">
+                <div id="leaf-size-value" class="warning">3px</div>
+                
+                <button id="random-tree-btn">Случайное дерево</button>
+            </div>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas id="fractal-canvas" width="800" height="600"></canvas>
+        </div>
+        
+        <div class="system-info">
+            <h3>Описание текущей системы:</h3>
+            <pre id="system-description"></pre>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
